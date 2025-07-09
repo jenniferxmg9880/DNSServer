@@ -51,7 +51,7 @@ def decrypt_with_aes(encrypted_data, password, salt):
 
 salt = b'Tandon' # Remember it should be a byte-object
 password = "jmg9880@nyu.edu"
-input_string = "AlwaysWatching"
+input_string = str("AlwaysWatching")
 
 encrypted_value = encrypt_with_aes(input_string, password, salt) # exfil function
 decrypted_value = decrypt_with_aes(encrypted_value, password, salt)  # exfil function
