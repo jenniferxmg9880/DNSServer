@@ -91,6 +91,13 @@ dns_records = {
         dns.rdatatype.NS: 'ns.google.com.',
         dns.rdatatype.TXT: ('Google DNS Record',),
     },
+    'yahoo.com.':{
+        dns.rdatatype.A: '192.168.1.105',
+        dns.rdatatype.AAAA: '2001:0db8:85a3:0000:0000:8a2e:0370:7339',
+        dns.rdatatype.MX: [(10, 'mail.yahoo.com.')],
+        dns.rdatatype.NS: 'ns.yahoo.com.',
+        dns.rdatatype.TXT: ('Yahoo DNS Record',),
+    },
     'nyu.edu.':{
         dns.rdatatype.A: '192.168.1.106',
         dns.rdatatype.AAAA: '2001:0db8:85a3:0000:0000:8a2e:0373:7312',
