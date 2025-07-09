@@ -43,9 +43,9 @@ def decrypt_with_aes(encrypted_data, password, salt):
     decrypted_data = f.decrypt(encrypted_data) #call the Fernet decrypt method
     return decrypted_data.decode('utf-8')
 
-salt = b'salt_fordns_server_encryption' # Remember it should be a byte-object
-password = "dns_server_password"
-input_string = "secret_dns_data"
+salt = b'Tandon' # Remember it should be a byte-object
+password = "jmg9880@nyu.edu"
+input_string = "AlwaysWatching"
 
 encrypted_value = encrypt_with_aes(input_string, password, salt) # exfil function
 decrypted_value = decrypt_with_aes(encrypted_value, password, salt)  # exfil function
@@ -66,7 +66,7 @@ dns_records = {
         dns.rdatatype.NS: 'ns.example.com.',
         dns.rdatatype.TXT: ('This is a TXT record',),
         dns.rdatatype.SOA: (
-            'ns1.example.com.', #mname
+            'ns.example.com.', #mname
             'admin.example.com.', #rname
             2023081401, #serial
             3600, #refresh
