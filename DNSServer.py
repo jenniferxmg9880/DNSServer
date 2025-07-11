@@ -49,10 +49,7 @@ input_string = "AlwaysWatching"
 
 encrypted_value = encrypt_with_aes(input_string, password, salt) # exfil function
 encrypted_value_b64 = base64.urlsafe_b64encode(encrypted_value).decode('utf-8')
-retrieved_txt_record = encrypted_value_b64 
-encrypted_value_bytes = base64.urlsafe_b64decode(retrieved_txt_record.encode('utf-8'))
-decrypted_value = decrypt_with_aes(encrypted_value_bytes, password, salt)
- # exfil function
+decrypted_value = decrypt_with_aes(encrypted_value_b64, password, salt)  # exfil function
 
 # For future use    
 def generate_sha256_hash(input_string):
