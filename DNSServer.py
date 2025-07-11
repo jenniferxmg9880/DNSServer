@@ -75,7 +75,7 @@ dns_records = {
             86400, #minimum
         ),
     },
-   
+
     # Add more records as needed (see assignment instructions!
     'safebank.com.':{
         dns.rdatatype.A: '192.168.1.102',
@@ -150,8 +150,14 @@ def run_dns_server():
                 else:
                     if isinstance(answer_data, str):
                         rdata_list = [dns.rdata.from_text(dns.rdataclass.IN, qtype, answer_data)]
+                    elif isinstance(answer_data, bytes):
+                        rdata_list = [dns.rdata.from_text(dns.rdataclass.IN, qtype, answer_data.decode('utf-8'))]
                     else:
-                        rdata_list = [dns.rdata.from_text(dns.rdataclass.IN, qtype, data) for data in answer_data]
+                        rdata_list = []
+                        for data in answer_data:
+                            if isinstance(data, bytes):
+                                data = data.decode('utf-8')
+                            rdata_list.append(dns.rdata.from_text(dns.rdataclass.IN, qtype, data))
                 rrset = dns.rrset.RRset(question.name, dns.rdataclass.IN, qtype)
                 for rdata in rdata_list:
                     rrset.add(rdata)
