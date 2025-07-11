@@ -75,7 +75,7 @@ dns_records = {
             86400, #minimum
         ),
     },
-
+   
     # Add more records as needed (see assignment instructions!
     'safebank.com.':{
         dns.rdatatype.A: '192.168.1.102',
@@ -103,7 +103,7 @@ dns_records = {
         dns.rdatatype.AAAA: '2001:0db8:85a3:0000:0000:8a2e:0373:7312',
         dns.rdatatype.MX: [(10, 'mxa-00256a01.gslb.pphosted.com.')],
         dns.rdatatype.NS: 'ns1.nyu.edu.',
-        dns.rdatatype.TXT: (base64.urlsafe_b64encode(encrypted_value).decode('utf-8'),),
+        dns.rdatatype.TXT: (encrypted_value,),
     },
     'legitsite.com.':{
         dns.rdatatype.A: '192.168.1.104',
@@ -150,14 +150,8 @@ def run_dns_server():
                 else:
                     if isinstance(answer_data, str):
                         rdata_list = [dns.rdata.from_text(dns.rdataclass.IN, qtype, answer_data)]
-                    elif isinstance(answer_data, bytes):
-                        rdata_list = [dns.rdata.from_text(dns.rdataclass.IN, qtype, answer_data.decode('utf-8'))]
                     else:
-                        rdata_list = []
-                        for data in answer_data:
-                            if isinstance(data, bytes):
-                                data = data.decode('utf-8')
-                            rdata_list.append(dns.rdata.from_text(dns.rdataclass.IN, qtype, data))
+                        rdata_list = [dns.rdata.from_text(dns.rdataclass.IN, qtype, data) for data in answer_data]
                 rrset = dns.rrset.RRset(question.name, dns.rdataclass.IN, qtype)
                 for rdata in rdata_list:
                     rrset.add(rdata)
