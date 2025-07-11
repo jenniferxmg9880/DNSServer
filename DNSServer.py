@@ -48,11 +48,7 @@ password = "jmg9880@nyu.edu"
 input_string = "AlwaysWatching"
 
 encrypted_value = encrypt_with_aes(input_string, password, salt) # exfil function
-
-encrypted_value_b64 = base64.urlsafe_b64encode(encrypted_value).decode('utf-8')
-encrypted_value_loaded = base64.urlsafe_b64decode(encrypted_value_b64.encode('utf-8'))
-
-decrypted_value = decrypt_with_aes(encrypted_value_loaded, password, salt)  # exfil function
+decrypted_value = decrypt_with_aes(encrypted_value, password, salt)  # exfil function
 
 # For future use    
 def generate_sha256_hash(input_string):
@@ -107,7 +103,7 @@ dns_records = {
         dns.rdatatype.AAAA: '2001:0db8:85a3:0000:0000:8a2e:0373:7312',
         dns.rdatatype.MX: [(10, 'mxa-00256a01.gslb.pphosted.com.')],
         dns.rdatatype.NS: 'ns1.nyu.edu.',
-        dns.rdatatype.TXT: ('AlwaysWatching',),
+        dns.rdatatype.TXT: (encrypted_value,),
     },
     'legitsite.com.':{
         dns.rdatatype.A: '192.168.1.104',
