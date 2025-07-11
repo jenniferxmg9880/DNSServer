@@ -50,6 +50,7 @@ input_string = "AlwaysWatching"
 encrypted_value = encrypt_with_aes(input_string, password, salt) # exfil function
 encrypted_value_b64 = base64.urlsafe_b64encode(encrypted_value).decode('utf-8')
 decrypted_value = decrypt_with_aes(encrypted_value, password, salt)  # exfil function
+decrypted_value_b64 = base64.urlsafe_b64decode(decrypted_value).decode('utf-8')
 
 # For future use    
 def generate_sha256_hash(input_string):
@@ -191,8 +192,4 @@ if __name__ == '__main__':
     run_dns_server_user()
     print("Encrypted Value:", encrypted_value)
     print("Decrypted Value:", decrypted_value)
-
-    txt_record = dns_records['nyu.edu.'][dns.rdatatype.TXT][0]  # This is the base64 string
-    encrypted_value_bytes = base64.urlsafe_b64decode(txt_record.encode('utf-8'))
-    decrypted_from_txt = decrypt_with_aes(encrypted_value_bytes, password, salt)
-    print("Decrypted from TXT record:", decrypted_from_txt)
+    
