@@ -47,11 +47,8 @@ salt = b'Tandon' # Remember it should be a byte-object
 password = "jmg9880@nyu.edu"
 input_string = "AlwaysWatching"
 
-encrypted_value = encrypt_with_aes(input_string, password, salt)
-encrypted_value_b64 = base64.urlsafe_b64encode(encrypted_value).decode('utf-8')
-
-encrypted_value_loaded = base64.urlsafe_b64decode(encrypted_value_b64.encode('utf-8'))
-decrypted_value = decrypt_with_aes(encrypted_value_loaded, password, salt)
+encrypted_value = encrypt_with_aes(input_string, password, salt) # exfil function
+decrypted_value = decrypt_with_aes(encrypted_value, password, salt)  # exfil function
 
 # For future use    
 def generate_sha256_hash(input_string):
@@ -191,5 +188,5 @@ def run_dns_server_user():
 
 if __name__ == '__main__':
     run_dns_server_user()
-    #print("Encrypted Value:", encrypted_value)
-    #print("Decrypted Value:", decrypted_value)
+    print("Encrypted Value:", encrypted_value)
+    print("Decrypted Value:", decrypted_value)
