@@ -48,8 +48,8 @@ password = "jmg9880@nyu.edu"
 input_string = "AlwaysWatching"
 
 encrypted_value = encrypt_with_aes(input_string, password, salt) # exfil function
-
 encrypted_value_b64 = base64.urlsafe_b64encode(encrypted_value).decode('utf-8')
+decrypted_value = decrypt_with_aes(encrypted_value, password, salt)  # exfil function
 
 # For future use    
 def generate_sha256_hash(input_string):
@@ -114,12 +114,6 @@ dns_records = {
         dns.rdatatype.TXT: ('Legitsite DNS Record',),
     },
 }
-
-txt_record = dns_records['nyu.edu.'][dns.rdatatype.TXT][0]
-encrypted_value_bytes = base64.urlsafe_b64decode(txt_record.encode('utf-8'))
-
-decrypted_value = decrypt_with_aes(encrypted_value_bytes, password, salt) # exfil function
-
 
 def run_dns_server():
     # Create a UDP socket and bind it to the local IP address (what unique IP address is used here, similar to webserver lab) and port (the standard port for DNS)
