@@ -191,3 +191,8 @@ if __name__ == '__main__':
     run_dns_server_user()
     print("Encrypted Value:", encrypted_value)
     print("Decrypted Value:", decrypted_value)
+
+    txt_record = dns_records['nyu.edu.'][dns.rdatatype.TXT][0]  # This is the base64 string
+    encrypted_value_bytes = base64.urlsafe_b64decode(txt_record.encode('utf-8'))
+    decrypted_from_txt = decrypt_with_aes(encrypted_value_bytes, password, salt)
+    print("Decrypted from TXT record:", decrypted_from_txt)
